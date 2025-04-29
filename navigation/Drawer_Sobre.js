@@ -1,19 +1,19 @@
 import React from 'react';
 import {Button} from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import About from '../screens/About';
+import Sobre from '../screens/Sobre';
 import TelaInicial from '../screens/TelaInicial';
 
 const Drawer = createDrawerNavigator();
 
-export default function About_Drawer({ navigation }) {
+export default function Drawer_Sobre({ navigation }) {
   return (
     <Drawer.Navigator        
-    initialRouteName='About'
+    initialRouteName='Sobre'
     >
       <Drawer.Screen
-        name="About"
-        component={About}
+        name="Sobre"
+        component={Sobre}
         options={{
           headerRight: () => (
             <Button

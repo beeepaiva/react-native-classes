@@ -5,7 +5,6 @@ import { SafeAreaProvider, SafeAreaView   } from 'react-native-safe-area-context
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import {styles} from '../components/styles';
-import Welcome from '../navigation/Welcome_BottomTabs';
 
 export default function Login({navigation}) {
 
@@ -16,7 +15,7 @@ export default function Login({navigation}) {
       <View style={{flex: 0.8, backgroundColor: '#fff'}}>
     
       <Text>Login</Text>
-      <Button title="Entrar" onPress={() => navigation.replace('Welcome')} />
+      <Button title="Entrar" onPress={() => navigation.replace('TelaInicial')} />
     </View>
           <Footer/>
     </SafeAreaView>

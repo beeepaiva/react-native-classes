@@ -5,7 +5,6 @@ import { SafeAreaProvider, SafeAreaView   } from 'react-native-safe-area-context
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import {styles} from '../components/styles';
-import Welcome from '../navigation/Welcome_BottomTabs';
 
 export default function TelaInicial({navigation}) {
 
@@ -19,7 +18,7 @@ export default function TelaInicial({navigation}) {
       style={{height: 100, width: 100, resizeMode:'contain', margin: 5}}
     />
       <Text style={{fontSize: 20, marginBottom: 30, marginTop: 30}}>Seja bem vindo(a) a pizzaria do BCC!</Text>
-      <Button title="Entrar" onPress={() => navigation.replace('Welcome')} />
+      <Button title="Entrar" onPress={() => navigation.navigate('Cardapio')} />
     </View>
           <Footer/>
     </View>
