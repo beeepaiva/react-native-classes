@@ -10,8 +10,8 @@ export default function BottomTabs_Tela2() {
 
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Tela2" component={Tela2} />
-      <Tab.Screen name="Nav-Tela3" component={Drawer_Tela3} />
+      <Tab.Screen name="Tela2" component={Tela2} options={{ tabBarLabel: 'Tela inicial',  headerShown: true}}/>
+      <Tab.Screen name="Nav-Tela3" component={Drawer_Tela3} options={{ tabBarLabel: 'Sobre' }}/>
     </Tab.Navigator>
   );
 }

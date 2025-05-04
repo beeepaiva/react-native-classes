@@ -16,6 +16,7 @@ export default function Drawer_Tela3({ navigation }) {
       <Drawer.Screen
         name="Tela3"
         component={Tela3}
+        options={{title:"Sobre"}}
       />
      
     </Drawer.Navigator>

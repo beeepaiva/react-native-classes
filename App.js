@@ -35,10 +35,12 @@ export default function App() {
         />
         <Stack.Screen 
         name='Nav-Tela2' 
+        options={title="Tela inicial"}
         component={BottomTabs_Tela2} 
         />
         <Stack.Screen 
         name='Nav-Tela3' 
+        options={title="Sobre"}
         component={Drawer_Tela3} 
         />
       
