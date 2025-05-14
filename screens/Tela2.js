@@ -1,21 +1,28 @@
-import { View, Text, Button, StyleSheet, Switch, Image, useColorScheme, useWindowDimensions } from 'react-native';
-import react, {useState} from 'react'
-import { SafeAreaProvider, SafeAreaView   } from 'react-native-safe-area-context';
+import React from 'react';
+import { View, Text, Image, SectionList, StyleSheet } from 'react-native';
 
-import {styles} from '../components/styles';
+const DATA = [
+  { categoria: "Cães", data: ["Vira-Lata", "Golden", "Labrador", "Poodle", "Bulldog"] },
+  { categoria: "Gatos", data: ["Vira-Lata", "Persa", "Siamês", "Sphynx"] }
+];
 
-export default function Tela2({navigation}) {
-
+export default function Tela2() {
   return (
-    <SafeAreaProvider>
-    <SafeAreaView style={styles.container}>
-      <View style={{flex: 0.8, backgroundColor: '#fff'}}>
-    
-      <Text style={{fontSize: 24, color: 'black', alignContent:'center'}} >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec elit ultrices ligula semper vehicula nec convallis est. Morbi eros neque, consequat eget vehicula sed, sodales et erat. Nunc nec mattis velit. Mauris eget ex erat. Nunc ornare mauris in mattis semper. Morbi porttitor velit sed nunc euismod finibus. In sollicitudin dictum diam, vitae pulvinar quam molestie sit amet. Morbi dictum est nec dictum tristique. Cras iaculis vehicula lacus et sagittis. Nulla rhoncus felis vitae turpis mollis, vel venenatis metus mattis. Duis vitae nulla finibus, imperdiet nulla eget, porta augue. Fusce in mi dolor. Pellentesque et nisi risus.
-      </Text>
+    <View style={styles.container}>
+      <Image source={require('../assets/zoe.jpg')} style={styles.image} resizeMode='contain' />
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
+        renderSectionHeader={({ section: { categoria } }) => <Text style={styles.header}>{categoria}</Text>}
+      />
     </View>
-    </SafeAreaView>
-    </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 16 },
+  image: { width: '100%', height: 300, marginBottom: 10 },
+  header: { fontWeight: 'bold', fontSize: 18, marginTop: 10 },
+  item: { fontSize: 16, paddingLeft: 10 }
+});
