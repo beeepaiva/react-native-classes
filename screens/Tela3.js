@@ -16,6 +16,7 @@ export default function Tela3({navigation}){
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec elit ultrices ligula semper vehicula nec convallis est. Morbi eros neque, consequat eget vehicula sed, sodales et erat. Nunc nec mattis velit. Mauris eget ex erat. Nunc ornare mauris in mattis semper. Morbi porttitor velit sed nunc euismod finibus. In sollicitudin dictum diam, vitae pulvinar quam molestie sit amet. Morbi dictum est nec dictum tristique. Cras iaculis vehicula lacus et sagittis. Nulla rhoncus felis vitae turpis mollis, vel venenatis metus mattis. Duis vitae nulla finibus, imperdiet nulla eget, porta augue. Fusce in mi dolor. Pellentesque et nisi risus.
       </Text>
             <Button onPress={()=>{navigation.goBack()}} title='Voltar'/>
+            <Button onPress={()=>{navigation.navigate()}} title='Ir para a tela de Entrada'/>
             
     </View>
     </View>
