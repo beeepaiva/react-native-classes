@@ -9,8 +9,7 @@ import {
   Button,
   StyleSheet
 } from 'react-native';
-import firestore from '@react-native-firebase/firestore'; // ou firebase/firestore se usar web SDK
-
+import firestore from '@react-native-firebase/firestore'; 
 export default function Dicas({ navigation }) {
   const [dicas, setDicas] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -18,7 +17,7 @@ export default function Dicas({ navigation }) {
   const [descricao, setDescricao] = useState('');
   const [editandoId, setEditandoId] = useState(null);
 
-  // 🔄 Buscar dicas em tempo real
+  //Buscar dicas 
   useEffect(() => {
     const unsubscribe = firestore()
       .collection('dicas_pets')
@@ -34,7 +33,7 @@ export default function Dicas({ navigation }) {
     return () => unsubscribe();
   }, []);
 
-  // 📝 Salvar ou atualizar dica
+  // Salvar ou atualizar dica
   const salvarDica = async () => {
     if (!titulo || !descricao) return;
 
@@ -56,12 +55,11 @@ export default function Dicas({ navigation }) {
     setModalVisible(false);
   };
 
-  // 🗑 Deletar dica
+  //Deletar dica
   const deletarDica = async (id) => {
     await firestore().collection('dicas_pets').doc(id).delete();
   };
 
-  // ✏️ Abrir modal para editar
   const editarDica = (item) => {
     setTitulo(item.titulo);
     setDescricao(item.descricao);
@@ -92,7 +90,6 @@ export default function Dicas({ navigation }) {
 
       <Button title="Voltar" onPress={() => navigation.goBack()} />
 
-      {/* Modal */}
       <Modal visible={modalVisible} animationType="slide">
         <View style={styles.modalContent}>
           <TextInput
