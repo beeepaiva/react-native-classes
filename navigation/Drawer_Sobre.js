@@ -8,7 +8,7 @@ const Drawer = createDrawerNavigator();
 export default function DrawerNavigator() {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="Sobre" component={Sobre} />
+      <Drawer.Screen name="SobreScreen" component={Sobre} />
       <Drawer.Screen name="Dicas" component={Dicas} />
     </Drawer.Navigator>
   );

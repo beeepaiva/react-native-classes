@@ -9,7 +9,11 @@ import {
   Button,
   StyleSheet
 } from 'react-native';
-import firestore from '@react-native-firebase/firestore'; 
+import { deleteDoc, updateDoc, doc, 
+  addDoc, getDocs, collection } from 'firebase/firestore'; 
+
+import { db } from '../FirebaseConfig'
+
 export default function Dicas({ navigation }) {
   const [dicas, setDicas] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -17,36 +21,49 @@ export default function Dicas({ navigation }) {
   const [descricao, setDescricao] = useState('');
   const [editandoId, setEditandoId] = useState(null);
 
+  const fetchData = async() =>{
+    try{
+      const querySnapshot = await getDocs(collection(db, 'dicas_pets'))
+      const lista = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+      setDicas(lista);
+    }catch(error){
+      console.log(error)
+    }
+  }
   //Buscar dicas 
   useEffect(() => {
-    const unsubscribe = firestore()
-      .collection('dicas_pets')
-      .orderBy('titulo')
-      .onSnapshot(snapshot => {
-        const data = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setDicas(data);
-      });
+    fetchData()
 
-    return () => unsubscribe();
   }, []);
 
   // Salvar ou atualizar dica
   const salvarDica = async () => {
     if (!titulo || !descricao) return;
-
+    console.log(editandoId);
+    const ref = doc(db, 'dicas_pets', editandoId)
     if (editandoId) {
-      await firestore().collection('dicas_pets').doc(editandoId).update({
-        titulo,
-        descricao
-      });
+      try{
+          await updateDoc(ref, {
+          titulo,
+          descricao
+        })
+      }catch(error){
+        console.log(error)
+      }
+      
     } else {
-      await firestore().collection('dicas_pets').add({
-        titulo,
-        descricao
-      });
+      try{
+        await addDoc(collection(db, 'dicas_pets'), {
+          titulo,
+          descricao
+        })
+    }catch(error){
+      console.log(error)
+    }
+    fetchData()
     }
 
     setTitulo('');
@@ -57,7 +74,9 @@ export default function Dicas({ navigation }) {
 
   //Deletar dica
   const deletarDica = async (id) => {
-    await firestore().collection('dicas_pets').doc(id).delete();
+    const ref = doc(db, 'dicas_pets', id)
+    await deleteDoc(ref);
+    fetchData()
   };
 
   const editarDica = (item) => {

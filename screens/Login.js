@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 
 import { auth } from '../FirebaseConfig'
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+
+  useEffect(() => {
+    const checkLogin = onAuthStateChanged(auth, (user) => {
+      if (user)
+        navigation.replace('MainTabs')
+    })
+    return checkLogin;
+  }, [])
 
   const handleLogin = async () => {
     if (!email.includes('@') || senha.length < 6) {
