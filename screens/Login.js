@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 
 import { auth } from '../FirebaseConfig'
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged  } from 'firebase/auth'
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
@@ -10,11 +10,14 @@ export default function Login({ navigation }) {
 
   useEffect(() => {
     const checkLogin = onAuthStateChanged(auth, (user) => {
-      if (user)
-        navigation.replace('MainTabs')
-    })
-    return checkLogin;
-  }, [])
+      if (user) {
+        // Usuário já está logado
+        navigation.replace('MainTabs');
+      } 
+    });
+
+    return () => checkLogin();
+  }, []);
 
   const handleLogin = async () => {
     if (!email.includes('@') || senha.length < 6) {
@@ -55,13 +58,19 @@ export default function Login({ navigation }) {
       <TextInput style={styles.input} value={email} onChangeText={setEmail} />
       <Text>Senha:</Text>
       <TextInput style={styles.input} value={senha} onChangeText={setSenha} secureTextEntry />
-      <Button title="Entrar" onPress={handleLogin} />
-      <Button title="Criar conta com esse email e senha" onPress={handleCreateAccount} />
+      <View style={styles.button}>
+        <Button title="Entrar" onPress={handleLogin} />
+      </View>
+
+      <View style={styles.button}>
+        <Button title="Criar conta com esse email e senha" onPress={handleCreateAccount} />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', padding: 20 },
-  input: { borderWidth: 1, padding: 10, marginVertical: 10 }
+  input: { borderWidth: 1, padding: 10, marginVertical: 10 },
+  button: { margin: 10}
 });
